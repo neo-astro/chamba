@@ -174,7 +174,7 @@ export default function SearchPage({ initialQuery = '', onSelectPro }: Props) {
                 {/* Price filter */}
                 <div>
                   <label className="text-xs font-semibold text-foreground block mb-2">
-                    Precio máximo: ${maxPrice.toLocaleString()}/hr
+                    Precio máximo: ${maxPrice}/hr
                   </label>
                   <input
                     type="range"

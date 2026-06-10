@@ -367,7 +367,7 @@ export default function ProfilePage({ proId, onBack, onNavigate, isLoggedIn = fa
             <div className="bg-card border border-border rounded-3xl p-5 sticky top-24">
               <div className="flex items-baseline gap-1 mb-1">
                 <span className="font-heading font-800 text-3xl text-foreground">
-                  ${pro.price.toLocaleString()}
+                  ${pro.price}
                 </span>
                 <span className="text-sm text-muted-foreground">/{pro.priceUnit}</span>
               </div>
