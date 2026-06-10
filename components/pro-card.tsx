@@ -78,7 +78,7 @@ export default function ProCard({ pro, onClick }: Props) {
         </div>
         <div className="flex items-center gap-1">
           <span className="font-heading font-700 text-base text-foreground">
-            ${pro.price.toLocaleString()}
+            ${pro.price}
           </span>
           <span className="text-xs text-muted-foreground">/{pro.priceUnit}</span>
         </div>

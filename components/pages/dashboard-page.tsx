@@ -417,7 +417,7 @@ export default function DashboardPage({ onNavigate, onLogout, onSearch }: Props)
               {/* Stats cards */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { icon: Eye, value: totalViews.toLocaleString(), label: 'Visitas totales', color: '#2DD4BF', bg: '#F0FDFB' },
+                  { icon: Eye, value: String(totalViews), label: 'Visitas totales', color: '#2DD4BF', bg: '#F0FDFB' },
                   { icon: Users, value: String(totalContacts), label: 'Contactos recibidos', color: '#FF7F50', bg: '#FFF5F0' },
                   { icon: Briefcase, value: `${activeProfiles}/${profiles.length}`, label: 'Perfiles activos', color: '#A78BFA', bg: '#F5F3FF' },
                   { icon: Star, value: '4.9', label: 'Valoración media', color: '#FBBF24', bg: '#FFFBEB' },
@@ -598,7 +598,7 @@ export default function DashboardPage({ onNavigate, onLogout, onSearch }: Props)
                             <span className="font-medium text-foreground">{p.rating > 0 ? p.rating : '—'}</span>
                           </div>
                           <div className="ml-auto text-sm font-semibold text-foreground">
-                            ${p.price.toLocaleString()}
+                            ${p.price}
                             <span className="text-xs text-muted-foreground font-normal">/{p.priceUnit}</span>
                           </div>
                         </div>
