@@ -300,8 +300,16 @@ export function setAuthToken(token: string) {
   localStorage.setItem('auth_token', token)
 }
 
+export function setRefreshToken(token: string) {
+  localStorage.setItem('refresh_token', token)
+}
+
 export function getAuthToken() {
   return localStorage.getItem('auth_token')
+}
+
+export function getRefreshToken() {
+  return localStorage.getItem('refresh_token')
 }
 
 export function clearAuthToken() {

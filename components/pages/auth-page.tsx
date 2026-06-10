@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Eye, EyeOff, Zap, ArrowLeft, CheckCircle } from 'lucide-react'
+import { Eye, EyeOff, Zap, ArrowLeft, CheckCircle, Loader2 } from 'lucide-react'
+import { auth, setAuthToken, setRefreshToken } from '@/lib/api'
 
 type Props = {
   mode: 'login' | 'register'
@@ -12,11 +13,43 @@ type Props = {
 export default function AuthPage({ mode, onNavigate, onAuth }: Props) {
   const [show, setShow] = useState(false)
   const [tab, setTab] = useState<'login' | 'register'>(mode)
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'both' })
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'professional' })
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    onAuth()
+    setError('')
+    setLoading(true)
+
+    try {
+      if (tab === 'login') {
+        const response = await auth.login({
+          email: form.email,
+          password: form.password,
+        })
+        setAuthToken(response.access_token)
+        if (response.refresh_token) {
+          localStorage.setItem('refresh_token', response.refresh_token)
+        }
+      } else {
+        const response = await auth.register({
+          email: form.email,
+          password: form.password,
+          full_name: form.name,
+          role: (form.role as 'client' | 'professional') || 'professional',
+        })
+        setAuthToken(response.access_token)
+        if (response.refresh_token) {
+          localStorage.setItem('refresh_token', response.refresh_token)
+        }
+      }
+      onAuth()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const isLogin = tab === 'login'
@@ -103,6 +136,11 @@ export default function AuthPage({ mode, onNavigate, onAuth }: Props) {
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            {error && (
+              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
+                {error}
+              </div>
+            )}
             {!isLogin && (
               <div>
                 <label className="block text-xs font-semibold text-foreground mb-1.5">
@@ -194,8 +232,10 @@ export default function AuthPage({ mode, onNavigate, onAuth }: Props) {
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-full bg-[var(--turquoise)] text-white font-semibold text-sm hover:opacity-90 transition-all shadow-sm mt-1"
+              disabled={loading}
+              className="w-full py-3.5 rounded-full bg-[var(--turquoise)] text-white font-semibold text-sm hover:opacity-90 transition-all shadow-sm mt-1 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
+              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {isLogin ? 'Iniciar sesión' : 'Crear cuenta gratuita'}
             </button>
           </form>
