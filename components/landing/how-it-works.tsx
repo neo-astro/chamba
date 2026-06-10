@@ -32,7 +32,7 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-20 bg-background">
+    <section id="how-it-works" className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         <div className="text-center mb-14">
           <h2 className="font-heading font-700 text-3xl md:text-4xl text-foreground text-balance mb-3">
