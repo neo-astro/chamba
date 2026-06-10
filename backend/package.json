@@ -8,7 +8,9 @@
     "dev": "bun run --watch src/index.ts",
     "build": "bun build src/index.ts --outfile dist/index.js",
     "start": "bun src/index.ts",
+    "db:create": "bun run database/create-db.ts",
     "db:migrate": "bun run database/migrate.ts",
+    "db:setup": "bun run database/create-db.ts && bun run database/migrate.ts",
     "db:seed": "psql -d $DATABASE_URL -f database/seed.sql"
   },
   "dependencies": {

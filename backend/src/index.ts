@@ -7,7 +7,7 @@ import { generateToken, generateRefreshToken, verifyRefreshToken } from './jwt';
 import bcrypt from 'bcryptjs';
 
 const app = new Hono();
-const PORT = process.env.PORT || 3001;
+const PORT = parseInt(process.env.PORT || '3001', 10);
 
 // CORS configuration
 app.use(
@@ -590,8 +590,10 @@ app.notFound((c) => {
 });
 
 // Start server
-console.log(`[Server] Starting ProConnect backend on port ${PORT}...`);
-export default {
+const server = Bun.serve({
   port: PORT,
   fetch: app.fetch,
-};
+});
+
+console.log(`[Server] Starting ProConnect backend on port ${PORT}...`);
+console.log(`[Server] URL: http://localhost:${PORT}`);
