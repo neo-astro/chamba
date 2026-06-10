@@ -7,8 +7,9 @@ import SearchPage from '@/components/pages/search-page'
 import ProfilePage from '@/components/pages/profile-page'
 import AuthPage from '@/components/pages/auth-page'
 import DashboardPage from '@/components/pages/dashboard-page'
+import TopWorkersPage from '@/components/pages/top-workers-page'
 
-type Page = 'home' | 'search' | 'profile' | 'login' | 'register' | 'dashboard'
+type Page = 'home' | 'search' | 'profile' | 'login' | 'register' | 'dashboard' | 'top-workers'
 
 export default function Page() {
   const [page, setPage] = useState<Page>('home')
@@ -97,6 +98,12 @@ export default function Page() {
             onNavigate={navigate}
             isLoggedIn={isLoggedIn}
           />
+        </div>
+      )}
+
+      {page === 'top-workers' && (
+        <div className="pt-16">
+          <TopWorkersPage onSelectPro={handleSelectPro} />
         </div>
       )}
     </>

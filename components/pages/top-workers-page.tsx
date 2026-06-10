@@ -7,10 +7,10 @@ import type { Professional } from '@/lib/mock-data'
 import { PROFESSIONALS } from '@/lib/mock-data'
 
 interface Props {
-  onViewProfile: (proId: string) => void
+  onSelectPro: (proId: string) => void
 }
 
-export default function TopWorkersPage({ onViewProfile }: Props) {
+export default function TopWorkersPage({ onSelectPro }: Props) {
   const [topWorkers, setTopWorkers] = useState<Professional[]>([])
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'recent'>('rating')
   const [filterCategory, setFilterCategory] = useState<string>('all')
@@ -208,7 +208,7 @@ export default function TopWorkersPage({ onViewProfile }: Props) {
 
                 {/* CTA */}
                 <button
-                  onClick={() => onViewProfile(pro.id)}
+                  onClick={() => onSelectPro(pro.id)}
                   className="shrink-0 px-4 py-2.5 rounded-lg bg-[var(--turquoise)] text-white font-medium text-sm hover:opacity-90 transition-all"
                 >
                   Ver perfil

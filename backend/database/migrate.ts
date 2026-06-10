@@ -1,4 +1,4 @@
-import { query } from './src/db';
+import { query } from '../src/db';
 
 async function migrate() {
   try {
